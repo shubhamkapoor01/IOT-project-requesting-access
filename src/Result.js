@@ -17,7 +17,7 @@ function Result(props) {
 
 	const showAllowed = async (userToCheckAllowed) => {
 		if (typeof window.ethereum !== 'undefined') {
-			console.log(props.roomId);
+			console.log(props.roomId, userToCheckAllowed);
 			const provider = new ethers.providers.Web3Provider(window.ethereum);
 			const contract = new ethers.Contract(lockAddress, Lock.abi, provider);
 			try {
