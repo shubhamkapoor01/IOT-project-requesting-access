@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import "./Result.css";
 import cross from "./cross-1.gif";
 import tick from "./check-1.gif";
+import load from "./loading.gif";
 const lockAddress = process.env.REACT_APP_CONTRACT_LOCK_ADDRESS;
 
 function Result(props) {
@@ -45,11 +46,18 @@ function Result(props) {
     <div>
       {hasAccess === 0 ? (
         <div>
-          <div>Loading...</div>
+          <div className="box">
+            <div className="inner-box">
+              <img src={load} className="img"></img>
+              <div className="text">
+                <span className="text-span">Loading...</span>
+              </div>
+            </div>
+          </div>
           {userAccounts[0] === undefined ? (
-            <div>Account not connected</div>
+            <div className="load-txt">❌ Account Not Connected</div>
           ) : (
-            <div>Account connected</div>
+            <div className="load-txt">✅ Account Connected</div>
           )}
         </div>
       ) : hasAccess === 1 ? (

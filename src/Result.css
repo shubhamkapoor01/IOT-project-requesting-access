@@ -29,6 +29,12 @@
   padding-bottom: 20px;
   font-size: 1.2rem;
 }
+.load-txt {
+  margin-left: 41rem;
+  margin-top: 7rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
 
 @media only screen and (min-width: 300px) and (max-width: 500px) {
   .box {
@@ -48,5 +54,11 @@
   .text {
     padding-bottom: 10px;
     font-size: 0.9rem;
+  }
+  .load-txt {
+    margin-left: 25%;
+    margin-top: 20%;
+    font-size: 1rem;
+    font-weight: 500;
   }
 }
