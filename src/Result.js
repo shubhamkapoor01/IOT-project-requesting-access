@@ -47,6 +47,12 @@ function Result(props) {
     });
   }, [userAccounts]);
 
+  useEffect(() => {
+    props.socket.on('recieved', (data) => {
+      console.log('recieved' + data);
+    })
+  }, [props.socket])
+
   return (
     <div>
       {hasAccess === 0 ? (

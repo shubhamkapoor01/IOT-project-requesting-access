@@ -45,6 +45,7 @@ io.on('connection', (socket) => {
 			console.log('writing false on port...')
 			port.write("0");
 		}
+		socket.emit('recieved', data);
 	});
 });
 
