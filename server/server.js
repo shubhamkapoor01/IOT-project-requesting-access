@@ -8,7 +8,7 @@ const { pipeline } = require("serialport");
 const SerialPort = require("serialport");
 
 app.use(cors());
-// app.use(express.static(__dirname + '/../build'));
+app.use(express.static(__dirname + '/../build'));
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
 			console.log('writing false on port...')
 			port.write("0");
 		}
-		socket.emit('recieved', data);
+		io.emit('recieved', data);
 	});
 });
 
