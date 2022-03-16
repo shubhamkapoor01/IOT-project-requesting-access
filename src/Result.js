@@ -37,6 +37,7 @@ function Result(props) {
   };
 
   useEffect(() => {
+    console.log(`sending status ${hasAccess} to server...`);
     props.socket.emit('result', {status: hasAccess});
   }, [hasAccess]);
 
