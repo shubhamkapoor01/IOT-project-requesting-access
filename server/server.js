@@ -38,9 +38,15 @@ port.pipe(parser);
 
 io.on('connection', (socket) => {
 	socket.on('result', (data) => {
-		console.log(data);
-	})
-})
+		if (data.status === 1) {
+			console.log('writing true on port...')
+			port.write("1");
+		} else {
+			console.log('writing false on port...')
+			port.write("0");
+		}
+	});
+});
 
 const Port = process.env.PORT || 3001;
 server.listen(Port, () => console.log(`server is running on port ${Port}`));
