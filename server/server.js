@@ -5,9 +5,10 @@ const app = express();
 const cors = require("cors");
 const { Server } = require("socket.io");
 const { pipeline } = require("serialport");
-var SerialPort = require("serialport");
+const SerialPort = require("serialport");
 
 app.use(cors());
+app.use(express.static(__dirname + '/../build'));
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -22,7 +23,7 @@ const parser = new parsers.Readline({
 	delimiter: '\r\n'
 });
 
-var port = new SerialPort("/dev/cu.usbmodem14401", {
+const port = new SerialPort("/dev/cu.usbmodem14401", {
 	baudRate: 9600,
 	dataBits: 8,
 	parity: 'none',
