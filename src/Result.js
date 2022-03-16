@@ -5,13 +5,14 @@ import "./Result.css";
 import cross from "./cross-1.gif";
 import tick from "./check-1.gif";
 import load from "./loading.gif";
+
 const lockAddress = process.env.REACT_APP_CONTRACT_LOCK_ADDRESS;
 
 function Result(props) {
   const [hasAccess, setHasAccess] = useState(0);
   const [userAccounts, setUserAccounts] = useState([]);
 
-  const requestAccount = async () => {
+  const requestAccount = async () => { 
     await window.ethereum
       .request({ method: "eth_requestAccounts" })
       .then((response) => {
@@ -21,7 +22,6 @@ function Result(props) {
 
   const showAllowed = async (userToCheckAllowed) => {
     if (typeof window.ethereum !== "undefined") {
-      console.log(props.roomId, userToCheckAllowed);
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const contract = new ethers.Contract(lockAddress, Lock.abi, provider);
       try {
@@ -35,6 +35,10 @@ function Result(props) {
       }
     }
   };
+
+  useEffect(() => {
+    props.socket.emit('result', {status: hasAccess});
+  }, [hasAccess]);
 
   useEffect(() => {
     requestAccount().then(() => {
