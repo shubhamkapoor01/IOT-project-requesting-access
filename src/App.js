@@ -15,7 +15,7 @@ function App() {
 				<Route path="requesting-access/:roomId" element={<Redirect />} />
 			</Routes>
 		</BrowserRouter>
-	)
+	);
 }
 
 export default App;
