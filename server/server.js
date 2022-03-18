@@ -8,7 +8,7 @@ const { pipeline } = require("serialport");
 const SerialPort = require("serialport");
 
 app.use(cors());
-app.use(express.static(__dirname + '/../build'));
+// app.use(express.static(__dirname + '/../build'));
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -18,20 +18,28 @@ const io = new Server(server, {
 	},
 });
 
-const parsers = SerialPort.parsers;
-const parser = new parsers.Readline({
-	delimiter: '\r\n'
-});
+// eslint-disable-next-line no-unused-vars
+var allowed = 0;
 
-const port = new SerialPort("/dev/cu.usbmodem14401", {
-	baudRate: 9600,
-	dataBits: 8,
-	parity: 'none',
-	stopBits: 1,
-	flowControl: false
-});
+app.get("/", (request, response) => {
+	response.writeHead(200, {"Content-Type": "text/html"});
+	response.write(JSON.stringify(allowed));
+})
 
-port.pipe(parser);
+// const parsers = SerialPort.parsers;
+// const parser = new parsers.Readline({
+// 	delimiter: '\r\n'
+// });
+
+// const port = new SerialPort("/dev/cu.usbserial-A50285BI", {
+// 	baudRate: 9600,
+// 	dataBits: 8,
+// 	parity: 'none',
+// 	stopBits: 1,
+// 	flowControl: false
+// });
+
+// port.pipe(parser);
 
 // setTimeout(() => {
 // 	port.write("1");
@@ -40,13 +48,22 @@ port.pipe(parser);
 io.on('connection', (socket) => {
 	socket.on('result', (data) => {
 		if (data.status === 1) {
-			console.log('writing true on port...')
-			port.write("1");
+			console.log("writing HIGH...");
+			allowed = 1;
+			// port.write("1");
 		} else {
-			console.log('writing false on port...')
-			port.write("0");
+			console.log("writing LOW...");
+			allowed = 0;
+			// port.write("0");
 		}
-		io.emit('recieved', data);
+
+		// const payload = JSON.stringify(data);
+
+		// const request = http.request({}, () => {
+		// 	console.log("LED updated");
+		// })
+
+		socket.emit('recieved', data);
 	});
 });
 
