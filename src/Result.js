@@ -48,8 +48,8 @@ function Result(props) {
   }, [userAccounts]);
 
   useEffect(() => {
-    props.socket.on('recieved', (data) => {
-      console.log('recieved' + data);
+    props.socket.on('recieved', (payload) => {
+      console.log('recieved ' + payload.data + ' from ' + payload.port);
     })
   }, [props.socket])
 

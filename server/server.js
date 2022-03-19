@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
 		// 	console.log("LED updated");
 		// })
 
-		socket.emit('recieved', data);
+		socket.emit('recieved', {data: data, port: Port});
 	});
 });
 
