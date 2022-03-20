@@ -24,6 +24,7 @@ var allowed = 0;
 app.get("/", (request, response) => {
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(JSON.stringify(allowed));
+	console.log("serving request: ", request);
 })
 
 // const parsers = SerialPort.parsers;
